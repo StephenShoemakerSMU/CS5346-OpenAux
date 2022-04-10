@@ -14,6 +14,14 @@ EXPOSE 8000
 
 #Install IceS (icecast source client)
 RUN mkdir /etc/ices && mkdir /var/log/ices
-COPY $PWD/ices/* /etc/ices
+COPY $PWD/ices/* /etc/ices/
 
-CMD /etc/init.d/icecast2 start && tail -F /var/log/icecast2/error.log
+#Set up Express API
+RUN apt install -qq nodejs npm -y && mkdir /etc/express && mkdir /var/cache/streamer
+COPY $PWD/express /etc/express/
+WORKDIR /etc/express
+RUN npm install /etc/express
+EXPOSE 3000
+
+#CMD /etc/init.d/icecast2 start && ices2 /etc/ices/ices.xml && node /etc/express
+CMD node /etc/express
