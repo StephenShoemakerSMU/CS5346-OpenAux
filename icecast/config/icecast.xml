@@ -2,8 +2,8 @@
     <!-- location and admin are two arbitrary strings that are e.g. visible
          on the server info page of the icecast web interface
          (server_version.xsl). -->
-    <location>Earth</location>
-    <admin>cswood@smu.edu</admin>
+    <location>Eye of Terror</location>
+    <admin>chrisswood1024@protonmail.com</admin>
 
     <!-- IMPORTANT!
          Especially for inexperienced users:
@@ -13,8 +13,8 @@
     -->
 
     <limits>
-        <clients>100</clients>
-        <sources>2</sources>
+        <clients>10000</clients>
+        <sources>1</sources>
         <queue-size>524288</queue-size>
         <client-timeout>30</client-timeout>
         <header-timeout>15</header-timeout>
@@ -34,13 +34,13 @@
 
     <authentication>
         <!-- Sources log in with username 'source' -->
-        <source-password>hackme</source-password>
+        <source-password></source-password>
         <!-- Relays log in with username 'relay' -->
-        <relay-password>hackme</relay-password>
+        <relay-password></relay-password>
 
         <!-- Admin logs in with the username given below -->
-        <admin-user>admin</admin-user>
-        <admin-password>hackme</admin-password>
+        <admin-user>auxmaster</admin-user>
+        <admin-password></admin-password>
     </authentication>
 
     <!-- set the mountpoint for a shoutcast source to use, the default if not
