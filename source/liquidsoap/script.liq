@@ -12,4 +12,4 @@ settings.server.log.level.set(3)
 default = single("/etc/liquidsoap/idle.ogg")
 radio = fallback([request.queue(), default])
 
-output.icecast(%vorbis, host = "$ICECAST_HOST", port = 8000, password = "$ICECAST_SOURCE_PASS", mount = "stream.ogg", radio)
+output.icecast(%vorbis, host = "$ICECAST_HOST", port = 80, password = "$ICECAST_SOURCE_PASS", mount = "stream.ogg", radio)
