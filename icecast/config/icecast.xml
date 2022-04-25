@@ -2,8 +2,8 @@
     <!-- location and admin are two arbitrary strings that are e.g. visible
          on the server info page of the icecast web interface
          (server_version.xsl). -->
-    <location>Eye of Terror</location>
-    <admin>chrisswood1024@protonmail.com</admin>
+    <location></location>
+    <admin></admin>
 
     <!-- IMPORTANT!
          Especially for inexperienced users:
