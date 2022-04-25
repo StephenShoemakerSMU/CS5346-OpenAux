@@ -1,0 +1,101 @@
+#Icecast
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: icecast
+  labels:
+    app: icecast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: icecast
+  template:
+    metadata:
+      labels:
+        app: icecast
+    spec:
+      containers:
+      - name: streamer-icecast
+        image: gcr.io/openaux/streamer_icecast:latest
+        ports:
+        - containerPort: 8000
+        env:
+          - name: ICECAST_ADMIN_PASS
+            valueFrom:
+              secretKeyRef:
+                name: icecast-creds
+                key: admin
+                optional: false
+          - name: ICECAST_RELAY_PASS
+            valueFrom:
+              secretKeyRef:
+                name: icecast-creds
+                key: relay
+                optional: false
+          - name: ICECAST_SOURCE_PASS
+            valueFrom:
+              secretKeyRef:
+                name: icecast-creds
+                key: source
+                optional: false
+---
+#Icecast service
+apiVersion: v1
+kind: Service
+metadata:
+  name: icecast-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: icecast
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+---
+#Source
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liquidsoap
+  labels:
+    app: liquidsoap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liquidsoap
+  template:
+    metadata:
+      labels:
+        app: liquidsoap
+    spec:
+      containers:
+      - name: streamer-source
+        image: gcr.io/openaux/streamer_source:latest
+        ports:
+        - containerPort: 3000
+        env:
+          - name: ICECAST_SOURCE_PASS
+            valueFrom:
+              secretKeyRef:
+                name: icecast-creds
+                key: source
+                optional: false
+          - name: ICECAST_HOST
+            value: icecast-svc
+---
+#Source service
+apiVersion: v1
+kind: Service
+metadata:
+  name: liquidsoap-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: liquidsoap
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
