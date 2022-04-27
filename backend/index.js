@@ -14,8 +14,6 @@ const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
 
 
-
-
 const app = express();
 app.use(cors({
   origin: ['http://localhost:3000', process.env.frontend]

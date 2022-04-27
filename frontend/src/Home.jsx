@@ -58,7 +58,7 @@ export class Home extends React.Component{
                             }}
                     xs={10}> 
                         <ReactAudioPlayer
-                            src="http://blastfm.net:9000/BlastFM24hrRadio.mp3"
+                            src={`${process.env.REACT_APP_ICECAST}`}
                             autoPlay
                             controls
                             style={{width:"50rem"}}
