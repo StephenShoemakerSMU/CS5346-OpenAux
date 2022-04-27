@@ -63,7 +63,7 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --project ${{ secrets.GCP_PROJECT_ID }} \
-          ----update-env-vars REACT_APP_BACKEND=${{secrets.REACT_APP_BACKEND}},REACT_APP_ICECAST=${{secrets.REACT_APP_ICECAST}}
+          --update-env-vars REACT_APP_BACKEND=${{secrets.REACT_APP_BACKEND}},REACT_APP_ICECAST=${{secrets.REACT_APP_ICECAST}}
         
         
         
