@@ -47,7 +47,15 @@ jobs:
       
       - name: Build
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/openauxfrontend:latest
+          docker build . -t openauxfrontend
+      
+      - name: Tag Image
+        run: |
+          docker tag openauxfrontend gcr.io/${{  secrets.GCP_PROJECT_ID  }}/openauxfrontend
+      
+      - name: Push Image
+        run: |
+          docker push gcr.io/${{  secrets.GCP_PROJECT_ID  }}/openauxfrontend 
           
       - name: Deploy
         run: |
@@ -57,7 +65,7 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --project ${{ secrets.GCP_PROJECT_ID }} \
-          ----update-env-vars backend=${{secrets.backendurl}}
+          ----update-env-vars REACT_APP_BACKEND=${{secrets.REACT_APP_BACKEND}},REACT_APP_ICECAST=${{secrets.REACT_APP_ICECAST}}
         
         
         
