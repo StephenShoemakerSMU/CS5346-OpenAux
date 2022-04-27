@@ -12,7 +12,7 @@ const {Storage} = require('@google-cloud/storage');
 
 // Instantiate a storage client
 const storage = new Storage();
-console.log(process.env)
+
 
 
 
@@ -24,7 +24,7 @@ app.use(cors({
 // This middleware is available in Express v4.16.0 onwards
 app.use(express.json({limit: '50mb'}));
 
-app.get("/", (req,res) => res.send("Open Aux Api"))
+app.get("/", (req,res) => res.send("Open Aux Api!!!"))
 
 // Multer is required to process file uploads and make them available via
 // req.files.
