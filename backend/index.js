@@ -3,6 +3,7 @@ const express = require('express');
 const Multer = require('multer');
 const path = require('path')
 const cors=require('cors');
+const axios = require('axios')
 // By default, the client will authenticate using the service account file
 // specified by the GOOGLE_APPLICATION_CREDENTIALS environment variable and use
 // the project specified by the GOOGLE_CLOUD_PROJECT environment variable. See
@@ -29,7 +30,7 @@ app.get("/", (req,res) => res.send("Open Aux Api!!!"))
 const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
-    fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+    fileSize: 15 * 1024 * 1024, // no larger than 5mb, you can change as needed.
   },
 });
 
@@ -67,20 +68,22 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
       `https://storage.googleapis.com/${bucket.name}/${blob.name}`
     );
 
-    /*
-    fetch(`${process.env.liquidSoap}/track`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(publicUrl)
+    console.log(publicUrl)
+    axios.post(`${process.env.liquidsoap}track`,
+      {
+      url:publicUrl
+      }
+    ).then(function (response) {
+      
     })
-    */
-    res.status(200).send(publicUrl);
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+    res.status(200).send(publicUrl)
+    
   });
-
-  blobStream.end(req.file.buffer);
+  blobStream.end(req.file.buffer)
 });
 
 const PORT = parseInt(process.env.PORT) || 8000;
