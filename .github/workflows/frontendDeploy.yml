@@ -57,7 +57,7 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --project ${{ secrets.GCP_PROJECT_ID }} \
-          ----update-env-vars backend=${{backendurl}}
+          ----update-env-vars backend=${{secrets.backendurl}}
         
         
         
